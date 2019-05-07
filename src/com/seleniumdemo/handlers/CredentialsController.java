@@ -19,7 +19,7 @@ public class CredentialsController {
 
 	private static volatile CredentialsController instance;
 	private static final File CREDENTIALS_FILE = new File("credentialsDataFile.txt");
-	private static final String DEFAULT_ACCESS_KEY = "123456789";
+	//private static final String DEFAULT_ACCESS_KEY = "12345";
 
 	private static ArrayList<User> CREDENTIALS_LIST = new ArrayList<User>();
 
@@ -57,13 +57,13 @@ public class CredentialsController {
 			while(rawCredentials!=null) {
 				// Following two lines to handle space separated username password in input txt file.
 				// Use as necessary
-				//String[] credentialParts = rawCredentials.split(" ");
-				//AuctionUser currentCredentials = new AuctionUser(credentialParts[0], credentialParts[1]);
+				String[] credentialParts = rawCredentials.split(" ");
+				User currentCredentials = new User(credentialParts[0], credentialParts[1]);
 				
 				// Current implementation only lists the vendor usernames separated by new line.
 				// Above logic could be implemented where both username and password are in the credentials file.
 				// Comment out the following line if the above logic is implemented.
-				User currentCredentials = new User(rawCredentials, DEFAULT_ACCESS_KEY);
+				//User currentCredentials = new User(rawCredentials, DEFAULT_ACCESS_KEY);
 				
 				CREDENTIALS_LIST.add(currentCredentials);
 				rawCredentials = br.readLine();

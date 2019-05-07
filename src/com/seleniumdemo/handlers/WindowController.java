@@ -6,6 +6,8 @@ package com.seleniumdemo.handlers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.seleniumdemo.model.User;
 
@@ -15,19 +17,26 @@ import com.seleniumdemo.model.User;
  */
 public class WindowController {
 	
-	private static final String BASE_URL = "https://www.google.co.in";
+	private static final String BASE_URL = 
+	"https://accounts.google.com/signin/v2/identifier"
+	+ "?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
 
 	public static void openWindowForUser(User user, WebDriver chromeDriver) {
 
 		chromeDriver.manage().window().maximize();
 		chromeDriver.navigate().to(BASE_URL);
-		WebElement usernameField = chromeDriver.findElement(By.xpath("/html/body/app-root/app-login/div/div/div[2]/form/div[1]/div/input"));
-		WebElement passwordField = chromeDriver.findElement(By.xpath("//*[@id=\"Pass\"]"));
-		WebElement loginButton = chromeDriver.findElement(By.cssSelector(
-				"body > app-root > app-login > div > div > div.right-col > form > div.form-actions > button"));
+		WebElement usernameField = chromeDriver.findElement(By.xpath("//*[@id=\"identifierId\"]"));
 		usernameField.sendKeys(user.getUsername());
+		WebElement userNextButton = chromeDriver.findElement(By.cssSelector("#identifierNext > content > span"));
+		userNextButton.click();
+		
+		// Password field to be used
+		// Wait added here as the page would reload.
+		WebElement passwordField = new WebDriverWait(chromeDriver, 10).
+				until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input")));
 		passwordField.sendKeys(user.getPassword());
-		loginButton.click();
+		WebElement passwordNextButton = chromeDriver.findElement(By.cssSelector("#passwordNext > content > span"));
+		passwordNextButton.click();
 	}
 
 }
