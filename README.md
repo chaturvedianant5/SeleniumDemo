@@ -2,10 +2,11 @@
 Demo project in JAVA using Selenium WebDriver. The application logs into the **GMail** account specified by the user.
 
 ## Run the application
-1. Open a command prompt/terminal.
-2. Navigate to the directory where the executable application jar is present.
-3. Verify that the **chromedriver.exe** and the **credentialsDataFile.txt** are present in the same directory.
-4. Run the following command:
+1. Before running the application build an executable jar of the same and save the same.
+2. Open a command prompt/terminal.
+3. Navigate to the directory where the executable application jar is present.
+4. Verify that the **chromedriver.exe** and the **credentialsDataFile.txt** are present in the same directory.
+5. Run the following command:
 
 ```
 $ java -jar <executable jar name>.jar
